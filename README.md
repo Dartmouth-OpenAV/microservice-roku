@@ -7,6 +7,8 @@ The Roku Ultra is a high-performance 4K streaming media player designed for fast
 
 [Roku Ultra](https://www.roku.com/products/players/roku-ultra)
 
+[Microservice curl test documentation](https://github.com/Dartmouth-OpenAV/documentation/blob/main/curl_test_readme.md)
+
 ![](https://github.com/Dartmouth-OpenAV/microservice-roku/blob/main/box.png)
 
 ![](https://github.com/Dartmouth-OpenAV/microservice-roku/blob/main/rear.png)
