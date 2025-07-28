@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "42acebef-03e9-499d-867b-f3c05916e4d7",
+		"name": "Roku",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26997154"
+	},
+	"item": [
+		{
+			"name": "GET Power",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{microserviceURL}}/{{deviceFQDN}}",
+					"protocol": "http",
+					"host": [
+						"{{microserviceURL}}"
+					],
+					"path": [
+						"{{deviceFQDN}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SET Power",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"power_state\": \"on\"\n}    ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{microserviceURL}}/{{deviceFQDN}}",
+					"protocol": "http",
+					"host": [
+						"{{microserviceURL}}"
+					],
+					"path": [
+						"{{deviceFQDN}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SET Video Input",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"video_input_num\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{microserviceURL}}/{{deviceFQDN}}",
+					"protocol": "http",
+					"host": [
+						"{{microserviceURL}}"
+					],
+					"path": [
+						"{{deviceFQDN}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TOGGLE Audio Mute",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"audio_mute\": \"toggle\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{microserviceURL}}/{{deviceFQDN}}",
+					"protocol": "http",
+					"host": [
+						"{{microserviceURL}}"
+					],
+					"path": [
+						"{{deviceFQDN}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SET Volume",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"audio_volume\": \"down\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://{{microserviceURL}}/{{deviceFQDN}}",
+					"protocol": "http",
+					"host": [
+						"{{microserviceURL}}"
+					],
+					"path": [
+						"{{deviceFQDN}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
