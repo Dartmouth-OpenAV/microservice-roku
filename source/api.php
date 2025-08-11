@@ -11,11 +11,14 @@ $post_data = json_decode(file_get_contents('php://input'),true);
 
 // Roku TV seems to want an IP address for connection? Need to verify
 // For now, if a hostname is passed convert it to the IP address
-if (filter_var($_GET['host'], FILTER_VALIDATE_IP)) {
-    $host = $_GET['host'];
+$parts = explode('/', $_GET['host'], 2);
+if (filter_var($parts[0], FILTER_VALIDATE_IP)) {
+    $host = $parts[0];
 } else {
-    $host = gethostbyname($_GET['host']);
+    $host = gethostbyname($parts[0]);
 }
+
+$endpoint = $parts[1];
 
 // where we'll store the responses sent back to caller
 $output = array();
@@ -30,16 +33,22 @@ if($function == "device") {
     if ($request_method == "GET") {
         $power_response = get_power($host);
 
-        if(is_array($power_response) && !empty($power_response)) {
-            $output = array_merge($output, $power_response);
-        }
+        if ($endpoint === 'healthcheck') {
+            // echo "true" because cURL connected successfully if we get to this point
+            echo '"true"';
+            exit;
+        } else {
+            if(is_array($power_response) && !empty($power_response)) {
+                $output = array_merge($output, $power_response);
+            }
 
-        // get the input information if the display is turned on
-        if($power_response['power_status']) {
-            $input_response = get_input($host);
+            // get the input information if the display is turned on
+            if($power_response['power_status']) {
+                $input_response = get_input($host);
 
-            if(is_array($input_response) && !empty($input_response)) {
-                $output = array_merge($output, $input_response);
+                if(is_array($input_response) && !empty($input_response)) {
+                    $output = array_merge($output, $input_response);
+                }
             }
         }
         // if(array_key_exists("power_status", $power_response) && $power_response['power_status']) {
@@ -107,6 +116,7 @@ print json_encode($output, JSON_PRETTY_PRINT);
 
 // power states to match PJLink: 0=off, 1=on, 2=cooling, 3=warming
 function get_power($host) {
+    global $endpoint;
 
     $url = "http://" . $host . ":" . ROKU_PORT . "/query/device-info"; 
     $curl = curl_init();
@@ -127,7 +137,13 @@ function get_power($host) {
     curl_close($curl);
     
     if ($err) {
-      echo "cURL Error #:" . $err;
+      if ($endpoint === 'healthcheck') {
+        // echo "false" because cURL could not connect
+        echo '"false"';
+      } else {
+        echo "cURL Error #:" . $err;
+      }
+      exit;
     } else {
 
         // $xml = simplexml_load_string($raw_response, "SimpleXMLElement", LIBXML_NOCDATA);
