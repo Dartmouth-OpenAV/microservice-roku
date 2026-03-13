@@ -12,6 +12,12 @@ $post_data = json_decode(file_get_contents('php://input'),true);
 // Roku TV seems to want an IP address for connection? Need to verify
 // For now, if a hostname is passed convert it to the IP address
 $parts = explode('/', $_GET['host'], 2);
+
+if( $parts[1]=="errors" ) {
+    echo '[]' ;
+    exit( 0 ) ;
+}
+
 if (filter_var($parts[0], FILTER_VALIDATE_IP)) {
     $host = $parts[0];
 } else {
